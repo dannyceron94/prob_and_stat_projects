@@ -1,0 +1,169 @@
+---
+title: "project01"
+author: "Danny Ceron"
+date: "September 11, 2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Exercise 1: An engineer is studying the formulation of a Portland cement mortar. He has added a polymer latex emulsion during mixing to determine if this impacts tension bond strength of the mortar. The experimenter prepared 10 samples of the original formulation and 10 samples of the modified formulation. The tension bond strength data from this experiment are shown in the following table.
+
+Modified Mortar	16.85	16.4	17.21	16.35	16.52	17.04	16.96	17.15	16.59	16.57
+Unmodified Mortar	
+16.62	
+16.75	
+17.37	
+17.12	
+16.98	
+16.87	
+17.34	
+17.02	
+17.08	
+17.27
+
+(a) Use c(16.62	,16.75,17.37	,17.12	,16.98	,16.87	,17.34	,17.02	,17.08,17.27) to generate two datasets.
+```{r}
+ModMortar <- c(16.85,	16.4,	17.21,	16.35,	16.52,	17.04,	16.96,	17.15,	16.59,	16.57)
+UnModMortar <- c(16.62	,16.75,17.37	,17.12	,16.98	,16.87	,17.34	,17.02	,17.08,17.27)
+```
+
+(b) Use mean() and median() to calculate the mean and median of each dataset.
+```{r}
+"Mean modified Mortar:"
+mean(ModMortar)
+"Median modified Mortar:"
+median(ModMortar)
+"Mean un modified Mortar:"
+mean(UnModMortar)
+"Median Un modified Mortar:"
+median(UnModMortar)
+```
+
+
+(c) Use sd(), var() and IQR() to calculate the sample standard deviation, sample variance
+and IQR of each dataset.
+```{r}
+"modified"
+"Standard Diviation:"
+sd(ModMortar)
+"Varience"
+var(ModMortar)
+"IQR"
+IQR(ModMortar)
+
+"Unmodified"
+"Standard Diviation:"
+sd(UnModMortar)
+"Varience"
+var(UnModMortar)
+"IQR"
+IQR(UnModMortar)
+```
+
+
+(d) Construct the histograms for the two datasets and make comments about the shapes.
+```{r}
+hist(ModMortar)
+```
+The barplot for modified Mortar no values between 16.6 and 16.8 weren't collected or never happen dont belong in the set. Really Unsecure of what happen when collecting the data. But if we were to have values. we could say that the data is right skewed, since most of the data collected is towards the left, it is easy to make the assumption that it is right skewed but we cant determine how many peacks it contains because we are bissing data in between.
+```{r}
+hist(UnModMortar)
+```
+
+
+(e) Construct comparative box-plots for the two groups and make comments about the
+similarity and difference.
+```{r}
+boxplot(ModMortar,UnModMortar)
+```
+The only similarities is that they dont have outliers, theu both have whiskers, some of their values are the same. Their max and min values appear to be different their sample median are also different. the whiskers for boxplot 1 look more symetric from both sides, while boxplot one of the whiskers seem to be farther to the lower bound of the data.
+
+Exercise 2: A survey was conducted in a class where 30 students are enrolled. The survey
+question is: how many courses is the student currently taking this semester? The
+response data are shown in the data file "P1_Classes.csv".
+```{r}
+data1 = read.csv("P1_Classes.csv")
+```
+
+
+(a) Construct the frequency table using table().
+```{r}
+"freaqency table"
+tabledata = table(data1$Classes)
+```
+
+
+(b) Construct bar-plot using barplot(). Add a title to the plot. You get a bonus point if you can add colors.
+```{r}
+barplot(tabledata, main = "Number of classes students are taking",col = "purple")
+```
+
+
+(c) Using R functions to count, how many students are taking more than three courses?
+```{r}
+count = which(data1[[1]]>=3)
+"the amount of students taking 3 or more classes:"
+length(count)
+```
+
+(d) Are there any outliers in this data? If so, what numbers are they? Use IQR and quartile(). 
+```{r}
+"IQR:"
+theIQR = IQR(data1[[1]])
+theIQR
+#"Quartiles:"
+q25 = quantile(data1[[1]], probs = .25)#Q1
+q75 = quantile(data1[[1]], probs = .75)#Q3
+
+#calculating lower and upper fence
+lowerFence = q25-1.5*theIQR
+upperFence = q75+1.5*theIQR
+#Outlier values
+lowerOutlier = which(data1[[1]]<=lowerFence)
+upperOutlier = which(data1[[1]]>=upperFence)
+"lower outlier"
+data1[[1]][c(lowerOutlier)]
+"UpperoutLier:"
+data1[[1]][c(upperOutlier)]
+```
+there are two outliers which are higer than most of the data. 17 and 13 are the only values that are outliers.
+
+Exercise 3:
+
+(a) Use seq() to generate a sequence 2, 4, . 24.
+```{r}
+leseq = seq(2,24,by = 2)
+leseq
+```
+
+(b) Use log() to generate a new sequence where each element is log-transformed from the
+```{r}
+log(leseq)
+```
+
+sequence in (a).
+
+(c) Remove the second to fifth elements in the resulting sequence in (b).
+```{r}
+x = leseq[-5]#Assigning the leftover elements into x
+x
+```
+6 is the number that dissapears becaus 6 is located in the 5 location of the array.
+
+(d) Use length() to obtain the length of the resulting sequence in (c).
+
+```{r}
+length(x)#getting the length of the stored sequence
+```
+
+(e) Sort the resulting sequence in (c) from high to low using sort().
+```{r}
+sort(x,decreasing = TRUE)#this is the sequence from part c
+```
+
